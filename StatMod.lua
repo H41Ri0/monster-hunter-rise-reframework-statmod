@@ -3,21 +3,11 @@ local config = { -- default values,
 	ebableELE = false,
 	enableCRT = false,
 	enableDEF = false,
-	enableFRES = false,
-	enableWRES = false,
-	enableTRES = false,
-	enableIRES = false,
-	enableDRES = false,
 	
-	attack_value = 1,
+	attack_value = 0,
 	element_value = 0,
-	defence_value = 1,
+	defence_value = 0,
 	critical_value = 0,
-	fire_res_value = 0,
-	water_res_value = 0,
-	thunder_res_value = 0,
-	ice_res_value = 0,
-	dragon_res_value = 0
 
 }
 
