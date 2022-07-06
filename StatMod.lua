@@ -116,7 +116,7 @@ end
 
 local function on_do_update(args)
 	set_attack_value()
-	set_element_value()
+	set_defence_value()
 	set_critical_value()
 	set_element_value()
 end
