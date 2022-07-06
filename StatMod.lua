@@ -81,16 +81,18 @@ function set_critical_value()
 	if config.enableCRT then
 		local playerData = getPlayerData()
 		local now_critical_value = playerData:get_field("_CriticalRate")
-		print(now_critical_value)
+		-- print(now_critical_value)
 		original_critical_value = now_defence_value
 		local total_critical_value = 0
-		total_critical_value = config.critical_value + now_critical_value
+		total_critical_value = config.critical_value
 		playerData:set_field("_CritChanceUpBow",total_critical_value)
-		playerData:set_field("_CritChanceUpBowTimer",10)
+		playerData:set_field("_CritChanceUpBowTimer",100)
+		playerData:set_field("_CritUpEcSecondTimer",50)
 	else
 		local playerData = getPlayerData()
 		playerData:set_field("_CritChanceUpBow",original_critical_value)
 		playerData:set_field("_CritChanceUpBowTimer",0)
+		playerData:set_field("_CritUpEcSecondTimer",0)
 		config.critical_value = 0
 	end
 end
@@ -100,8 +102,7 @@ function set_element_value()
 	if config.enableELE then
 		local playerData = getPlayerData()
 		local now_element_value = playerData:get_field("_ElementAttack")
-		local now_element_value2 = playerData:get_field("_ElementAttack2nd")
-		print(now_element_value,now_element_value2)
+		-- print(now_element_value)
 		original_element_value = now_element_value
 		local total_element_value = 0
 		total_element_value = config.element_value + now_element_value
@@ -113,6 +114,17 @@ function set_element_value()
 	end
 end
 
+local function on_do_update(args)
+	set_attack_value()
+	set_element_value()
+	set_critical_value()
+	set_element_value()
+end
+
+sdk.hook(
+    sdk.find_type_definition("snow.player.PlayerManager"):get_method("update"), 
+    on_do_update, 
+    function(retval) end)
 
 re.on_draw_ui(function()
 	local changed = false
